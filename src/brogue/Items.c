@@ -361,7 +361,10 @@ item *placeItem(item *theItem, short x, short y) {
 	short loc[2];
 	enum dungeonLayers layer;
 	char theItemName[DCOLS], buf[DCOLS];
-	if (x <= 0 || y <= 0) {
+	if (x <= 0 || y <= 0 ||
+		// don't place right next to stairs
+		( abs(x - levels[theItem->originDepth].upStairsLoc[0]) < 2 && abs(y - levels[theItem->originDepth].upStairsLoc[1] < 2) )
+	) {
 		randomMatchingLocation(&(loc[0]), &(loc[1]), FLOOR, NOTHING, -1);
 		theItem->xLoc = loc[0];
 		theItem->yLoc = loc[1];

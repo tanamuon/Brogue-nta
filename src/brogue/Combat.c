@@ -381,7 +381,7 @@ void specialHit(creature *attacker, creature *defender, short damage) {
         if (playerImmuneToMonster(attacker)) {
 			return;
 		}
-		
+		/*
 		if (attacker->info.abilityFlags & MA_HIT_DEGRADE_ARMOR
 			&& defender == &player
 			&& rogue.armor
@@ -395,6 +395,7 @@ void specialHit(creature *attacker, creature *defender, short damage) {
 			messageWithColor(buf, &itemMessageColor, false);
             checkForDisenchantment(rogue.armor);
 		}
+		*/
 		if (attacker->info.abilityFlags & MA_HIT_HALLUCINATE) {
 			if (!player.status[STATUS_HALLUCINATING]) {
 				combatMessage("you begin to hallucinate", 0);

@@ -1836,7 +1836,7 @@ const monsterWords monsterText[NUMBER_MONSTER_KINDS] = {
 	{"The dar battlemage's eyes glow like embers and $HISHER hands radiate an occult heat.",
 		"transmuting", "Transmuting",
 		{"cuts", {0}}},
-	{"A jelly subsisting on a diet of acid mounds will eventually express the characteristics of $HISHER prey, corroding any unprotected weapons or armor that come in contact with $HIMHER.",
+	{"A jelly subsisting on a diet of acid mounds will eventually express the characteristics of $HISHER prey, corroding any unprotected weapons that come in contact with $HIMHER.",
 		"transmuting", "Transmuting",
 		{"burns", {0}}},
 	{"Half man and half horse, the centaur is an expert with the bow and arrow -- hunter and steed fused into a single creature.",
@@ -2416,7 +2416,7 @@ itemTable scrollTable[NUMBER_SCROLL_KINDS] = {
 	{"teleportation",		itemTitles[2], "",	10,	500,	0,{0,0,0}, false, false, "This escape spell will instantly relocate you to a random location on the dungeon level. It can be used to escape a dangerous situation with luck. The unlucky reader might find himself in an even more dangerous place."},
 	{"remove curse",		itemTitles[3], "",	0,	150,	0,{0,0,0}, false, false, "This redemption spell will instantly strip from the reader's weapon, armor, rings and carried items any evil enchantments that might prevent the wearer from removing them."},
 	{"recharging",			itemTitles[4], "",	12,	375,	0,{0,0,0}, false, false, "The power bound up in this parchment will instantly recharge all of your staffs and charms."},
-	{"protect armor",		itemTitles[5], "",	10,	400,	0,{0,0,0}, false, false, "This ceremonial shielding magic will permanently proof your armor against degradation by acid."},
+	{"protect armor",		itemTitles[5], "",	0,	400,	0,{0,0,0}, false, false, "This ceremonial shielding magic will permanently proof your armor against degradation by acid."},
 	{"protect weapon",		itemTitles[6], "",	10,	400,	0,{0,0,0}, false, false, "This ceremonial shielding magic will permanently proof your weapon against degradation by acid."},
     {"sanctuary",           itemTitles[7], "",  10, 500,    0,{0,0,0}, false, false, "This protection rite will imbue the area with powerful warding glyphs, when released over plain ground. Monsters will not willingly set foot on the affected area."},
 	{"magic mapping",		itemTitles[8], "",	12,	500,	0,{0,0,0}, false, false, "This powerful scouting magic will etch a purple-hued image of crystal clarity into your memory, alerting you to the precise layout of the level and revealing all hidden secrets."},
@@ -2593,7 +2593,7 @@ const char monsterAbilityFlagDescriptions[32][COLS] = {
     "can steal items",							// MA_HIT_STEAL_FLEE
     "lights enemies on fire when $HESHE hits",  // MA_HIT_BURN
 	"can possess $HISHER summoned allies",		// MA_ENTER_SUMMONS
-	"corrodes armor when $HESHE hits",			// MA_HIT_DEGRADE_ARMOR
+	"",			// MA_HIT_DEGRADE_ARMOR
 	"can summon allies",						// MA_CAST_SUMMON
 	"immobilizes $HISHER prey",					// MA_SEIZES
 	"injects poison when $HESHE hits",			// MA_POISONS

@@ -787,6 +787,10 @@ void updateVision(boolean refreshDisplay) {
 }
 
 void checkNutrition() {
+	
+	// remove starvation mechanics while keeping hunger for health regen and charging
+	return;
+	
 	item *theItem;
 	char buf[DCOLS*3], foodWarning[DCOLS*3];
 	
@@ -1771,6 +1775,11 @@ short staffChargeDuration(const item *theItem) {
 
 // Multiplier can be negative, in which case staffs and charms will be drained instead of recharged.
 void rechargeItemsIncrementally(short multiplier) {
+	// don't recharge items if player is out of energy
+	if (player.status[STATUS_NUTRITION] <= 0) {
+		return;
+	}
+	
 	item *theItem;
 	char buf[DCOLS*3], theItemName[DCOLS*3];
 	short rechargeIncrement, staffRechargeDuration;
@@ -2214,14 +2223,18 @@ void playerTurnEnded() {
 		//updateFlavorText();
 		
 		// Regeneration/starvation:
+		/*
 		if (player.status[STATUS_NUTRITION] <= 0) {
 			player.currentHP--;
 			if (player.currentHP <= 0) {
 				gameOver("Starved to death", true);
 				return;
 			}
-		} else if (player.currentHP < player.info.maxHP
-				   && !player.status[STATUS_POISONED]) {
+		} else 
+		*/
+		if (player.currentHP < player.info.maxHP
+				   && !player.status[STATUS_POISONED]
+				   && player.status[STATUS_NUTRITION] > 0) {
 			if ((player.turnsUntilRegen -= 1000) <= 0) {
 				player.currentHP++;
                 if (player.previousHealthPoints < player.currentHP) {

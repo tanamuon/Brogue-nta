@@ -211,7 +211,7 @@ void applyInstantTileEffectsToCreature(creature *monst) {
         && (!cellHasTMFlag(*x, *y, TM_ALLOWS_SUBMERGING) || !(monst->info.flags & MONST_SUBMERGES))
 		&& cellHasTerrainFlag(*x, *y, T_IS_DF_TRAP)
 		&& !(pmap[*x][*y].flags & PRESSURE_PLATE_DEPRESSED)
-		&& monst->creatureState != MONSTER_ALLY)) {
+		&& monst->creatureState != MONSTER_ALLY) {
 		
 		pmap[*x][*y].flags |= PRESSURE_PLATE_DEPRESSED;
 		if (playerCanSee(*x, *y) && cellHasTMFlag(*x, *y, TM_IS_SECRET)) {
@@ -2143,6 +2143,15 @@ void searchTurn() {
     playerTurnEnded();
 }
 
+void freeSearchTurn() {
+    boolean foundSomething = false;
+	foundSomething = search(200);
+	if (foundSomething) {
+		message("you finish searching the area.", false);
+	}
+    rogue.justSearched = true;
+}
+
 void manualSearch() {
     if (rogue.playbackMode) {
         searchTurn();
@@ -2265,11 +2274,12 @@ void playerTurnEnded() {
 			analyzeMap(false); // Don't need to update the chokemap.
 		}
 		
+		boolean enemyInView = false;
 		for (monst = monsters->nextCreature; monst != NULL; monst = nextMonst) {
 			nextMonst = monst->nextCreature;
 			if ((monst->bookkeepingFlags & MB_BOUND_TO_LEADER)
 				&& (!monst->leader || !(monst->bookkeepingFlags & MB_FOLLOWER))
-				&& (monst->creatureState != MONSTER_ALLY)) {
+				&& monst->creatureState != MONSTER_ALLY) {
 				
 				killCreature(monst, false);
 				if (canSeeMonster(monst)) {
@@ -2278,6 +2288,12 @@ void playerTurnEnded() {
 					combatMessage(buf, messageColorFromVictim(monst));
 				}
 			}
+			if (canDirectlySeeMonster(monst) && monst->creatureState != MONSTER_ALLY) {
+				enemyInView = true;
+			}
+		}
+		if (!enemyInView) {
+			freeSearchTurn();
 		}
 		
 		if (player.status[STATUS_BURNING] > 0) {

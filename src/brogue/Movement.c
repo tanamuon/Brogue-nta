@@ -756,6 +756,8 @@ void buildFlailHitList(const short x, const short y, const short newX, const sho
 }
 
 boolean diagonalBlocked(const short x1, const short y1, const short x2, const short y2, const boolean limitToPlayerKnowledge) {
+	return false;
+	
     unsigned long tFlags;
     if (x1 == x2 || y1 == y2) {
         return false; // If it's not a diagonal, it's not diagonally blocked.

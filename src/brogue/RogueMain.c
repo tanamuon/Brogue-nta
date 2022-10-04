@@ -421,8 +421,8 @@ void initializeRogue(unsigned long seed) {
 	= rogue.stealthBonus = rogue.transference = rogue.wisdomBonus = rogue.reaping = 0;
 	rogue.lightMultiplier = 1;
 	
-	theItem = generateItem(FOOD, RATION);
-	theItem = addItemToPack(theItem);
+	//theItem = generateItem(FOOD, RATION);
+	//theItem = addItemToPack(theItem);
 	
 	theItem = generateItem(WEAPON, DAGGER);
 	theItem->enchant1 = theItem->enchant2 = 0;

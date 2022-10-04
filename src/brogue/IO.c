@@ -4267,7 +4267,7 @@ short printMonsterInfo(creature *monst, short y, boolean dim, boolean highlight)
         }
 		printProgressBar(0, y++, buf, monst->currentHP, monst->info.maxHP, &healthBarColor, dim);
 	}
-	
+	/*
 	if (monst == &player) {
 		// nutrition
 		if (player.status[STATUS_NUTRITION] > HUNGER_THRESHOLD) {
@@ -4282,7 +4282,7 @@ short printMonsterInfo(creature *monst, short y, boolean dim, boolean highlight)
 			printString("      STARVING      ", 0, y++, &badMessageColor, &black, NULL);
 		}
 	}
-	
+	*/
 	if (!player.status[STATUS_HALLUCINATING] || rogue.playbackOmniscience || monst == &player) {
 		
 		for (i=0; i<NUMBER_OF_STATUS_EFFECTS; i++) {

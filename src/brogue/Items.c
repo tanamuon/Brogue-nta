@@ -110,7 +110,9 @@ item *makeItemInto(item *theItem, unsigned long itemCategory, short itemKind) {
 	}
 	
 	itemCategory = pickItemCategory(itemCategory);
-	
+	if (itemCategory == FOOD) {
+		itemCategory = GOLD;
+	}
 	theItem->category = itemCategory;
 	
 	switch (itemCategory) {

@@ -787,6 +787,8 @@ void updateVision(boolean refreshDisplay) {
 }
 
 void checkNutrition() {
+	player.status[STATUS_NUTRITION] = STOMACH_SIZE;
+	return;
 	item *theItem;
 	char buf[DCOLS*3], foodWarning[DCOLS*3];
 	

@@ -2593,6 +2593,11 @@ void itemDetails(char *buf, item *theItem) {
                             fp_charmNegationRadius(enchant + FP_FACTOR),
                             charmRechargeDelay(theItem->kind, theItem->enchant1 + 1));
                     break;
+                case CHARM_RESURRECTION:
+                    sprintf(buf2, "\n\nWhen used, the charm will resurrect an ally (starting with the most recently deceased), and recharge in %i turns. (If the charm is enchanted, the charm will recharge in %i turns.)",
+                            charmRechargeDelay(theItem->kind, theItem->enchant1),
+                            charmRechargeDelay(theItem->kind, theItem->enchant1 + 1));
+                    break;
                 default:
                     break;
             }
@@ -6108,6 +6113,16 @@ void useCharm(item *theItem) {
         case CHARM_NEGATION:
             negationBlast("your charm", fp_charmNegationRadius(enchant) + 1); // Add 1 because otherwise radius 1 would affect only the player.
             break;
+        case CHARM_RESURRECTION:
+	    messageWithColor("your charm flashes and an ally returns!", &itemMessageColor, false);
+	    short x = player.xLoc, y = player.yLoc;
+	    creature *monst;
+	    monst = purgatory->nextCreature;
+	    getQualifyingPathLocNear(&(monst->xLoc), &(monst->yLoc), x, y, true,
+	                     T_DIVIDES_LEVEL & avoidedFlagsForMonster(&(monst->info)) & ~T_SPONTANEOUSLY_IGNITES, HAS_PLAYER,
+	                     avoidedFlagsForMonster(&(monst->info)) & ~T_SPONTANEOUSLY_IGNITES, (HAS_PLAYER | HAS_MONSTER | HAS_STAIRS), false);
+	    resurrectAlly(monst->xLoc, monst->yLoc);
+            break;
         default:
             break;
     }
@@ -6210,6 +6225,10 @@ void apply(item *theItem, boolean recordCommands) {
 			if (theItem->charges > 0) {
 				itemName(theItem, buf2, false, false, NULL);
 				sprintf(buf, "Your %s hasn't finished recharging.", buf2);
+				messageWithColor(buf, &itemMessageColor, false);
+				return;
+			} else if (theItem->kind == CHARM_RESURRECTION && !purgatory->nextCreature) {
+				sprintf(buf, "You have no deceased allies to resurrect.");
 				messageWithColor(buf, &itemMessageColor, false);
 				return;
 			}

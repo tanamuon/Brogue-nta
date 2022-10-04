@@ -2498,6 +2498,7 @@ itemTable charmTable[NUMBER_CHARM_KINDS] = {
     {"teleportation",   "", "",	4,	700,	0,{1,2,1}, true, false, "The surface of this nickel sphere has been etched with a perfect grid pattern. Somehow, the squares of the grid are all exactly the same size."},
     {"recharging",      "", "",	5,	700,	0,{1,2,1}, true, false, "A strip of bronze has been wound around a rough wooden sphere. Each time you touch it, you feel a tiny electric shock."},
     {"negation",        "", "",	5,	700,	0,{1,2,1}, true, false, "A featureless gray disc hangs from a lanyard. When you touch it, your hand and arm go numb."},
+    {"resurrection",    "", "",	0,	900,	0,{1,2,1}, true, false, "A frame made of a dull grey metal houses a small glass pane. No matter how many times you look through it the memory of what you see never stays with you."},
 };
 
 #pragma mark Bolt definitions

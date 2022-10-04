@@ -232,6 +232,7 @@ short charmEffectDuration(short charmKind, short enchant) {
         0,  // Teleportation
         0,  // Recharging
         0,  // Negation
+        0,  // Resurrection
     };
     const int64_t *increment[NUMBER_CHARM_KINDS] = {
         POW_0_CHARM_INCREMENT,      // Health
@@ -246,6 +247,7 @@ short charmEffectDuration(short charmKind, short enchant) {
         POW_0_CHARM_INCREMENT,      // Teleportation
         POW_0_CHARM_INCREMENT,      // Recharging
         POW_0_CHARM_INCREMENT,      // Negation
+        POW_0_CHARM_INCREMENT,      // Resurrection
     };
     enchant = clamp(enchant, 1, 50) - 1;
     return duration[charmKind] * increment[charmKind][enchant] >> FP_BASE;
@@ -277,6 +279,7 @@ short charmRechargeDelay(short charmKind, short enchant) {
         1000,   // Teleportation
         10000,  // Recharging
         2500,   // Negation
+        2500,   // Resurrection
     };
     const int64_t *increment[NUMBER_CHARM_KINDS] = {
         POW_45_CHARM_DECREMENT, // Health
@@ -291,6 +294,7 @@ short charmRechargeDelay(short charmKind, short enchant) {
         POW_45_CHARM_DECREMENT, // Teleportation
         POW_45_CHARM_DECREMENT, // Recharging
         POW_40_CHARM_DECREMENT, // Negation
+        POW_45_CHARM_DECREMENT, // Resurrection
     };
     enchant = clamp(enchant, 1, 50) - 1;
     short delay = charmEffectDuration(charmKind, enchant)

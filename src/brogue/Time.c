@@ -210,7 +210,8 @@ void applyInstantTileEffectsToCreature(creature *monst) {
 		&& !(monst->bookkeepingFlags & MB_SUBMERGED)
         && (!cellHasTMFlag(*x, *y, TM_ALLOWS_SUBMERGING) || !(monst->info.flags & MONST_SUBMERGES))
 		&& cellHasTerrainFlag(*x, *y, T_IS_DF_TRAP)
-		&& !(pmap[*x][*y].flags & PRESSURE_PLATE_DEPRESSED)) {
+		&& !(pmap[*x][*y].flags & PRESSURE_PLATE_DEPRESSED)
+		&& monst->creatureState != MONSTER_ALLY)) {
 		
 		pmap[*x][*y].flags |= PRESSURE_PLATE_DEPRESSED;
 		if (playerCanSee(*x, *y) && cellHasTMFlag(*x, *y, TM_IS_SECRET)) {

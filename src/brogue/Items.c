@@ -798,6 +798,7 @@ void pickUpItemAt(short x, short y) {
 		}
 		
 		theItem = addItemToPack(theItem);
+		identify(theItem);
 		
 		itemName(theItem, buf2, true, true, NULL); // include suffix, article
 		

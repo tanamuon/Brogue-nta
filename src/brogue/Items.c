@@ -166,14 +166,12 @@ item *makeItemInto(item *theItem, unsigned long itemCategory, short itemKind) {
 			
 			if (rand_percent(40)) {
 				theItem->enchant1 += rand_range(1, 3);
-				if (rand_percent(50)) {
+				if (rand_percent(50)) { // give it a bad runic and increase its enchantment
 					// cursed
-					theItem->enchant1 *= -1;
-					theItem->flags |= ITEM_CURSED;
-					if (rand_percent(33)) { // give it a bad runic
-						theItem->enchant2 = rand_range(NUMBER_GOOD_WEAPON_ENCHANT_KINDS, NUMBER_WEAPON_RUNIC_KINDS - 1);
-						theItem->flags |= ITEM_RUNIC;
-					}
+					theItem->enchant1 *= 3;
+					//theItem->flags |= ITEM_CURSED; 
+					theItem->enchant2 = rand_range(NUMBER_GOOD_WEAPON_ENCHANT_KINDS, NUMBER_WEAPON_RUNIC_KINDS - 1);
+					theItem->flags |= ITEM_RUNIC;
 				} else if (rand_range(3, 10)
                            * ((theItem->flags & ITEM_ATTACKS_STAGGER) ? 2 : 1)
                            / ((theItem->flags & ITEM_ATTACKS_QUICKLY) ? 2 : 1)
@@ -215,14 +213,12 @@ item *makeItemInto(item *theItem, unsigned long itemCategory, short itemKind) {
 			theItem->charges = ARMOR_DELAY_TO_AUTO_ID; // this many turns until it reveals its enchants and whether runic
 			if (rand_percent(40)) {
 				theItem->enchant1 += rand_range(1, 3);
-				if (rand_percent(50)) {
+				if (rand_percent(50)) { // give it a bad runic and increase its enchantment
 					// cursed
-					theItem->enchant1 *= -1;
-					theItem->flags |= ITEM_CURSED;
-					if (rand_percent(33)) { // give it a bad runic
-						theItem->enchant2 = rand_range(NUMBER_GOOD_ARMOR_ENCHANT_KINDS, NUMBER_ARMOR_ENCHANT_KINDS - 1);
-						theItem->flags |= ITEM_RUNIC;
-					}
+					theItem->enchant1 *= 3;
+					//theItem->flags |= ITEM_CURSED;
+					theItem->enchant2 = rand_range(NUMBER_GOOD_ARMOR_ENCHANT_KINDS, NUMBER_ARMOR_ENCHANT_KINDS - 1); 
+					theItem->flags |= ITEM_RUNIC;
 				} else if (rand_range(0, 95) > theItem->armor) { // give it a good runic
 					theItem->enchant2 = rand_range(0, NUMBER_GOOD_ARMOR_ENCHANT_KINDS - 1);
 					theItem->flags |= ITEM_RUNIC;
@@ -287,9 +283,11 @@ item *makeItemInto(item *theItem, unsigned long itemCategory, short itemKind) {
 			theItem->enchant1 = randClump(ringTable[itemKind].range);
 			theItem->charges = RING_DELAY_TO_AUTO_ID; // how many turns of being worn until it auto-identifies
 			if (rand_percent(16)) {
+			/*
 				// cursed
 				theItem->enchant1 *= -1;
 				theItem->flags |= ITEM_CURSED;
+			*/
 			} else {
                 while (rand_percent(10)) {
                     theItem->enchant1++;

@@ -668,8 +668,18 @@ void populateItems(short upstairsX, short upstairsY) {
 		}
 		
 		// Place the item.
-		placeItem(theItem, x, y); // Random valid location already obtained according to heat map.
-        brogueAssert(!cellHasTerrainFlag(x, y, T_OBSTRUCTS_PASSABILITY));
+		// Put vital items near stairs
+		if ( (theItem->category & SCROLL && theItem->kind == SCROLL_ENCHANTING) ||
+			 (theItem->category & POTION && theItem->kind == POTION_LIFE) ||
+			 (theItem->category & POTION && theItem->kind == POTION_STRENGTH) ||
+			 theItem->category & FOOD &&
+		     rogue.depthLevel > 1 ) {
+			placeItem(theItem, upstairsX, upstairsY);
+			brogueAssert(!cellHasTerrainFlag(x, y, T_OBSTRUCTS_PASSABILITY));
+		} else {
+			placeItem(theItem, x, y); // Random valid location already obtained according to heat map.
+			brogueAssert(!cellHasTerrainFlag(x, y, T_OBSTRUCTS_PASSABILITY));
+		}
 		
 		if (D_INSPECT_LEVELGEN) {
 			short **map = allocGrid();

@@ -1043,7 +1043,7 @@ boolean playerMoves(short direction) {
                    && (!rogue.armor || !(rogue.armor->flags & ITEM_RUNIC) || !(rogue.armor->flags & ITEM_RUNIC_IDENTIFIED) || rogue.armor->enchant2 != A_RESPIRATION)
                    && !confirm("Venture into dangerous gas?", false)) {
             return false;
-		} else if (pmap[newX][newY].flags & (ANY_KIND_OF_VISIBLE | MAGIC_MAPPED)
+		} /* else if (pmap[newX][newY].flags & (ANY_KIND_OF_VISIBLE | MAGIC_MAPPED)
 				   && player.status[STATUS_LEVITATING] <= 1
 				   && !player.status[STATUS_CONFUSED]
 				   && cellHasTerrainFlag(newX, newY, T_IS_DF_TRAP)
@@ -1052,7 +1052,7 @@ boolean playerMoves(short direction) {
 				   && !confirm("Step onto the pressure plate?", false)) {
 			return false;
 		}
-        
+        	*/
         if (rogue.weapon && (rogue.weapon->flags & ITEM_LUNGE_ATTACKS)) {
             newestX = player.xLoc + 2*nbDirs[direction][0];
             newestY = player.yLoc + 2*nbDirs[direction][1];

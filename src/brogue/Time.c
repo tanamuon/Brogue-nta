@@ -204,7 +204,7 @@ void applyInstantTileEffectsToCreature(creature *monst) {
 		&& (cellHasTerrainFlag(*x, *y, T_OBSTRUCTS_PASSABILITY))) {
 		discover(*x, *y);
 	}
-	/*
+	
 	// Pressure plates.
 	if (!(monst->status[STATUS_LEVITATING])
 		&& !(monst->bookkeepingFlags & MB_SUBMERGED)
@@ -232,7 +232,7 @@ void applyInstantTileEffectsToCreature(creature *monst) {
 			}
 		}
 	}
-	*/
+	
 	if (cellHasTMFlag(*x, *y, TM_PROMOTES_ON_STEP)) { // flying creatures activate too
 		// Because this uses no pressure plate to keep track of whether it's already depressed,
 		// it will trigger every time this function is called while the monster or player is on the tile.

@@ -2499,6 +2499,7 @@ itemTable charmTable[NUMBER_CHARM_KINDS] = {
     {"recharging",      "", "",	5,	700,	0,{1,2,1}, true, false, "A strip of bronze has been wound around a rough wooden sphere. Each time you touch it, you feel a tiny electric shock."},
     {"negation",        "", "",	5,	700,	0,{1,2,1}, true, false, "A featureless gray disc hangs from a lanyard. When you touch it, your hand and arm go numb."},
     {"resurrection",    "", "",	0,	900,	0,{1,2,1}, true, false, "A frame made of a dull grey metal houses a small glass pane. No matter how many times you look through it the memory of what you see never stays with you."},
+    {"commutation",    "", "",	0,	900,	0,{1,2,1}, true, false, "When you move the green beads of this tiny abacus your hands quickly grow cold."},
 };
 
 #pragma mark Bolt definitions

@@ -2598,6 +2598,11 @@ void itemDetails(char *buf, item *theItem) {
                             charmRechargeDelay(theItem->kind, theItem->enchant1),
                             charmRechargeDelay(theItem->kind, theItem->enchant1 + 1));
                     break;
+                case CHARM_COMMUTATION:
+                    sprintf(buf2, "\n\nWhen used, the charm will extract the enchanting scrolls used on any weapon, armor, staff, ring, or charm you are standing over, and recharge in %i turns. (If the charm is enchanted, the charm will recharge in %i turns.)",
+                            charmRechargeDelay(theItem->kind, theItem->enchant1),
+                            charmRechargeDelay(theItem->kind, theItem->enchant1 + 1));
+                    break;
                 default:
                     break;
             }
@@ -6123,6 +6128,20 @@ void useCharm(item *theItem) {
 	                     avoidedFlagsForMonster(&(monst->info)) & ~T_SPONTANEOUSLY_IGNITES, (HAS_PLAYER | HAS_MONSTER | HAS_STAIRS), false);
 	    resurrectAlly(monst->xLoc, monst->yLoc);
             break;
+        case CHARM_COMMUTATION:
+            messageWithColor("your charm flashes and the item at your feet grows cold.", &itemMessageColor, false);
+	    item *disenchantThis = itemAtLoc(player.xLoc, player.yLoc);
+	    int enchantScrolls = disenchantThis->timesEnchanted;
+	    int i;
+	    for (i = 0; i<enchantScrolls; i++) {
+	    	theItem = addItemToPack(generateItem(SCROLL, SCROLL_ENCHANTING));
+	    }
+	    disenchantThis->enchant1 -= enchantScrolls;
+	    if (disenchantThis->category == WEAPON || disenchantThis->category == ARMOR) {
+		    disenchantThis->strengthRequired += enchantScrolls;
+	    }
+	    disenchantThis->timesEnchanted = 0;
+            break;
         default:
             break;
     }
@@ -6231,6 +6250,25 @@ void apply(item *theItem, boolean recordCommands) {
 				sprintf(buf, "You have no deceased allies to resurrect.");
 				messageWithColor(buf, &itemMessageColor, false);
 				return;
+			} else if (theItem->kind == CHARM_COMMUTATION) {
+				item *disenchantThis = itemAtLoc(player.xLoc, player.yLoc);
+				if (!disenchantThis) {
+					sprintf(buf, "You must drop an item at your feet to commute its enchantment.");
+					messageWithColor(buf, &itemMessageColor, false);
+					return;
+				} else if (disenchantThis->category == WAND) {
+					sprintf(buf, "Wands cannot have their enchantment commuted.");
+					messageWithColor(buf, &itemMessageColor, false);
+					return;
+				} else if (disenchantThis->timesEnchanted <= 0) {
+					sprintf(buf, "This item does not have any enchantment to commute.");
+					messageWithColor(buf, &itemMessageColor, false);
+					return;
+				} else if (MAX_PACK_ITEMS - numberOfItemsInPack() <= disenchantThis->timesEnchanted) {
+					sprintf(buf, "You do not have enough inventory space.");
+					messageWithColor(buf, &itemMessageColor, false);
+					return;
+				}
 			}
             if (!commandsRecorded) {
                 command[c] = '\0';

@@ -428,6 +428,10 @@ void initializeRogue(unsigned long seed) {
 	theItem->enchant1 = 0;
 	theItem = addItemToPack(theItem);
 	
+	theItem = generateItem(CHARM, CHARM_COMMUTATION);
+	theItem->enchant1 = 0;
+	theItem = addItemToPack(theItem);
+	
 	theItem = generateItem(WEAPON, DAGGER);
 	theItem->enchant1 = theItem->enchant2 = 0;
 	theItem->flags &= ~(ITEM_CURSED | ITEM_RUNIC);

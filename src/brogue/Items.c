@@ -168,8 +168,9 @@ item *makeItemInto(item *theItem, unsigned long itemCategory, short itemKind) {
 				theItem->enchant1 += rand_range(1, 3);
 				if (rand_percent(50)) { // give it a bad runic and increase its enchantment
 					// cursed
-					theItem->enchant1 *= 3;
-					//theItem->flags |= ITEM_CURSED; 
+					//theItem->enchant1 *= -1;
+					//theItem->flags |= ITEM_CURSED;
+					theItem->enchant1 = rand_range(3, 9);
 					theItem->enchant2 = rand_range(NUMBER_GOOD_WEAPON_ENCHANT_KINDS, NUMBER_WEAPON_RUNIC_KINDS - 1);
 					theItem->flags |= ITEM_RUNIC;
 				} else if (rand_range(3, 10)
@@ -215,8 +216,9 @@ item *makeItemInto(item *theItem, unsigned long itemCategory, short itemKind) {
 				theItem->enchant1 += rand_range(1, 3);
 				if (rand_percent(50)) { // give it a bad runic and increase its enchantment
 					// cursed
-					theItem->enchant1 *= 3;
+					//theItem->enchant1 *= -1;
 					//theItem->flags |= ITEM_CURSED;
+					theItem->enchant1 = rand_range(3, 9);
 					theItem->enchant2 = rand_range(NUMBER_GOOD_ARMOR_ENCHANT_KINDS, NUMBER_ARMOR_ENCHANT_KINDS - 1); 
 					theItem->flags |= ITEM_RUNIC;
 				} else if (rand_range(0, 95) > theItem->armor) { // give it a good runic
